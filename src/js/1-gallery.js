@@ -1,10 +1,8 @@
 'use strict';
 
-// імпортувала бібліотеку і стилі
-import SimpleLightbox from 'simplelightbox/src/simple-lightbox';
+import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
 
-// скопіювала масив об'єктів (галерею) з попереднього ДЗ
 const images = [
   {
     preview:
@@ -73,7 +71,6 @@ const images = [
 
 const container = document.querySelector('.gallery');
 
-//методом reduce перебрала масив, створила нову стрічку і помістила її в container(ul з класом gallery)
 container.innerHTML = images.reduce(
   (html, { preview, original, description }) =>
     html +
@@ -92,8 +89,7 @@ container.innerHTML = images.reduce(
   ''
 );
 
-//новий лайтбокс для створення галереї
 let lightbox = new SimpleLightbox('.gallery a', {
-  captionsData: 'alt', //підпис взяла з 'alt'
-  captionDelay: 250, // затримка перед відображенням підпису
+  captionsData: 'alt',
+  captionDelay: 250,
 });
