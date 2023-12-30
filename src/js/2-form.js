@@ -23,13 +23,12 @@ const debounce = (func, wait, immediate) => {
 const FEEDBACK_STORAGE_KEY = 'feedback';
 const form = document.querySelector('.feedback-form');
 
-//отрим. об'єкту даних форми.
 const getFormData = () => {
   const formData = new FormData(form);
   const formObject = {};
 
   formData.forEach((value, key) => {
-    formObject[key] = value.trim(); //обрізка
+    formObject[key] = value.trim();
   });
 
   return formObject;
@@ -47,7 +46,7 @@ try {
     }
   });
 } catch (error) {
-  console.log('ERROR');
+  console.error('Error while retrieving initial form data:', error);
 }
 
 const saveToLocalStorageDebounced = debounce(() => {
@@ -63,13 +62,13 @@ form.addEventListener('submit', event => {
   event.preventDefault();
 
   const formObject = getFormData();
-  const isFormValid = Object.values(formObject).every(value => value !== '');
+  const isFormValid = Object.values(formObject).every(value => !!value.trim());
 
   if (isFormValid) {
     console.log(formObject);
     localStorage.removeItem(FEEDBACK_STORAGE_KEY);
     form.reset();
   } else {
-    alert('Заповніть всі поля форми');
+    alert('Please fill out all the form fields');
   }
 });
